@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.yuyue.YuyueDao">
+
+    <!-- 查询预约科室列表 -->
+    <select id="getKs" resultType="map">
+        select * from v_mz_ks
+    </select>
+
+    <!--查询预约医生列表-->
+    <select id="getDoc" resultType="map" parameterType="map">
+        select * from v_mz_doc where KSCODE = #{KSCODE}
+        <if test="STARTDATE != null">
+            and trunc(HYDATE) >= to_date(#STARTDATE#,'yyyy-mm-dd')
+        </if>
+        <if test="ENDDATE != null">
+            and trunc(HYDATE) >= to_date(#ENDDATE#,'yyyy-mm-dd')
+        </if>
+    </select>
+
+    <!--查询卡账单-->
+    <select id="getDocPb" resultType="map" parameterType="map">
+       select * from v_mz_yypb t where DOCCODE = #{DOCCODE}
+       and
+       order by t.billdate desc
+    </select>
+
+</mapper>
