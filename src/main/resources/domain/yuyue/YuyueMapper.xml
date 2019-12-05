@@ -18,11 +18,18 @@
         </if>
     </select>
 
-    <!--查询卡账单-->
+    <!--查询医生排班信息-->
     <select id="getDocPb" resultType="map" parameterType="map">
        select * from v_mz_yypb t where DOCCODE = #{DOCCODE}
-       and
+       and HYDATE = #{HYDATE}
        order by t.billdate desc
+    </select>
+
+
+    <!--查询我的预约信息-->
+    <select id="getYuyue" resultType="map" parameterType="map">
+       select * from v_mz_getyue t where CARDNO = #{CARDNO}
+       order by t.SUBTIME desc
     </select>
 
 </mapper>
