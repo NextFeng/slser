@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.zycx.ZycxDao">
+
+    <!-- 查询住院号 -->
+    <select id="getzyCards" resultType="map" parameterType="map">
+        select * from v_zy_cards
+        <where>
+            <if test="NAME != null">
+                and NAME = #{NAME}
+            </if>
+            <if test="IDNO != null">
+                and IDNO = #{IDNO}
+            </if>
+            <if test="PHONE != null">
+                and PHONE = #{PHONE}
+            </if>
+        </where>
+    </select>
+
+    <!-- 查询住院缴费记录 -->
+    <select id="getzyBill" resultType="map" parameterType="map">
+        select * from v_zy_bill where CARDNO = #{CARDNO} order by paytime desc
+    </select>
+
+    <!-- 查询住院账单 -->
+    <select id="getzyZd" resultType="map" parameterType="map">
+       select * from v_zy_zd  where CARDNO = #{CARDNO}
+       order by zddate desc
+    </select>
+
+    <!-- 查询住院账单明细 -->
+    <select id="getzyZdmx" resultType="map" parameterType="map">
+       select * from v_zy_zdmx t where CARDNO = #{CARDNO}
+       and zddate =  #{ZDDATE}
+    </select>
+
+</mapper>

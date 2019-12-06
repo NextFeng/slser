@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.guahao.GuahaoDao">
+
+    <!-- 查询预约科室列表 -->
+    <select id="getKs" resultType="map">
+        select * from v_mz_ghks
+    </select>
+
+    <!--查询预约医生列表-->
+    <select id="getDoc" resultType="map" parameterType="map">
+        select * from v_mz_ghdoc where KSCODE = #{KSCODE}
+    </select>
+
+    <!--查询医生排班信息-->
+    <select id="getDocPb" resultType="map" parameterType="map">
+       select * from v_mz_ghpb t where DOCCODE = #{DOCCODE}
+       order by t.billdate desc
+    </select>
+
+    <!--查询我的挂号信息-->
+    <select id="getGuahao" resultType="map" parameterType="map">
+       select * from v_mz_getgh t where CARDNO = #{CARDNO}
+       order by t.SUBTIME desc
+    </select>
+
+</mapper>

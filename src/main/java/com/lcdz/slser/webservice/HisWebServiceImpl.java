@@ -5,7 +5,7 @@ import com.lcdz.slser.tools.exception.ReException;
 import com.lcdz.slser.tools.result.ResUtil;
 import com.lcdz.slser.tools.utils.WebUtils;
 import com.lcdz.slser.tools.utils.XmlUtil;
-import com.lcdz.slser.web.CardController;
+import com.lcdz.slser.web.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -26,6 +26,21 @@ public class HisWebServiceImpl implements HisWebService {
     @Autowired
     private CardController cardController;
 
+    @Autowired
+    private YuyueController yuyueController;
+
+    @Autowired
+    private GuahaoController guahaoController;
+
+    @Autowired
+    private JiancyController jiancyController;
+
+    @Autowired
+    private ZycxController zycxController;
+
+    @Autowired
+    private HospController hospController;
+
 
     @Override
     public String hiser(String message) {
@@ -39,61 +54,86 @@ public class HisWebServiceImpl implements HisWebService {
 //            }
             String payMethod  = pamap.get("Method");
             if (MethodConstants.v_mz_cards.equals(payMethod)) {
+                //查询院内就诊卡
                 returnXml = cardController.MzCards(pamap);
             }else if(MethodConstants.proce_mz_create.equals(payMethod)){
-                //
+                //创建就诊卡
             }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
+                //就诊卡充值
 
             }else if(MethodConstants.v_mz_charge.equals(payMethod)){
+                //卡余额查询
                 returnXml = cardController.MzCardCharge(pamap);
             }else if(MethodConstants.v_mz_bill.equals(payMethod)){
+                //查询卡账单
                 returnXml = cardController.MzCardBill(pamap);
             }else if(MethodConstants.v_mz_ks.equals(payMethod)){
+                //查询医院预约科室
+                returnXml = yuyueController.yuyueKs(pamap);
 
             }else if(MethodConstants.v_mz_doc.equals(payMethod)){
-
+                //查询科室下的医生
+                returnXml = yuyueController.yuyueDoc(pamap);
             }else if(MethodConstants.v_mz_yypb.equals(payMethod)){
-
+                //查询医生排班信息
+                returnXml = yuyueController.yuyuePb(pamap);
             }else if(MethodConstants.proce_mz_yue.equals(payMethod)){
+                //生成预约信息
 
             }else if(MethodConstants.v_mz_getyue.equals(payMethod)){
-
+                //查询我的预约
+                returnXml = yuyueController.yuyueList(pamap);
             }else if(MethodConstants.proce_mz_calyy.equals(payMethod)){
+                //取消预约
 
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
+            }else if(MethodConstants.v_mz_ghks.equals(payMethod)){
+                //查询医院挂号科室
+                returnXml = guahaoController.guahaoKs(pamap);
+            }else if(MethodConstants.v_mz_ghdoc.equals(payMethod)){
+                //查询医院挂号科室下的医生
+                returnXml = guahaoController.guahaoDoc(pamap);
+            }else if(MethodConstants.v_mz_ghpb.equals(payMethod)){
+                //查询医院挂号医生排班信息
+                returnXml = guahaoController.guahaoPb(pamap);
+            }else if(MethodConstants.proce_mz_gh.equals(payMethod)){
+                //挂号
 
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
+            }else if(MethodConstants.v_mz_getgh.equals(payMethod)){
+                //查询我的挂号信息
+                returnXml = guahaoController.guahaoList(pamap);
+            }else if(MethodConstants.proce_mz_calgh.equals(payMethod)){
+                //取消挂号
 
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
+            }else if(MethodConstants.v_my_jy.equals(payMethod)){
+                //查询我的检验信息
+                returnXml = jiancyController.jyList(pamap);
+            }else if(MethodConstants.v_my_jymx.equals(payMethod)){
+                //查询检验信息明细
+                returnXml = jiancyController.jymxList(pamap);
+            }else if(MethodConstants.v_my_jc.equals(payMethod)){
+                //查询检查信息
+                returnXml = jiancyController.jcList(pamap);
+            }else if(MethodConstants.v_my_jcmx.equals(payMethod)){
+                //查询检查信息明细
+                returnXml = jiancyController.jcmxInfo(pamap);
+            }else if(MethodConstants.v_zy_cards.equals(payMethod)){
+                //查询住院号
+                returnXml = zycxController.zyCards(pamap);
+            }else if(MethodConstants.v_zy_bill.equals(payMethod)){
+                //查询住院缴费记录
+                returnXml = zycxController.zyBill(pamap);
+            }else if(MethodConstants.proce_zy_charge.equals(payMethod)){
+                //住院押金充值
 
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
-            }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
-
+            }else if(MethodConstants.v_zy_zd.equals(payMethod)){
+                //查询住院账单
+                returnXml = zycxController.zyZd(pamap);
+            }else if(MethodConstants.v_zy_zdmx.equals(payMethod)){
+                //查询住院账单明细
+                returnXml = zycxController.zyZdmx(pamap);
+            }else if(MethodConstants.v_hosp_tel.equals(payMethod)){
+                //查询院内联系方式
+                returnXml = hospController.docInfo(pamap);
             }else {
                 throw new ReException("Method 方法名传入错误");
             }

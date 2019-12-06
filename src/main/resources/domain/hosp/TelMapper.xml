@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.hosp.TelDao">
+
+    <!-- 查询医院医生信息 -->
+    <select id="getDocInfo" resultType="map" parameterType="map">
+        select * from v_hosp_tel
+        <where>
+            <if test="DOCNUM != null">
+                and DOCNUM = #{DOCNUM}
+            </if>
+            <if test="PASSWORD != PASSWORD">
+                and PASSWORD = #{PASSWORD}
+            </if>
+        </where>
+    </select>
+
+</mapper>

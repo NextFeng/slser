@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.jiancy.JianCyDao">
+
+    <!-- 查询检验信息 -->
+    <select id="getjy" resultType="map" parameterType="map">
+        select * from v_my_jy where CARDNO = #{CARDNO}
+        order by JYTIME desc
+    </select>
+
+    <!-- 查询检验信息明细 -->
+    <select id="getjymx" resultType="map" parameterType="map">
+        select * from v_my_jymx where JYNO = #{JYNO}
+    </select>
+
+    <!-- 查询检查信息 -->
+    <select id="getjc" resultType="map" parameterType="map">
+       select * from v_my_jc t where CARDNO = #{CARDNO}
+       order by t.JYTIME desc
+    </select>
+
+
+    <!-- 查询检查明细信息 -->
+    <select id="getjcmx" resultType="map" parameterType="map">
+       select * from v_my_jcmx t where JCNO = #{JCNO}
+    </select>
+
+</mapper>
