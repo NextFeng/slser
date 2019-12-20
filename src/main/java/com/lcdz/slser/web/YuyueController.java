@@ -86,6 +86,40 @@ public class YuyueController {
     }
 
 
+    /**
+     * 生成预约信息
+     * @param map
+     * @return
+     */
+    public String addYuyue(Map<String,String> map){
+        try{
+            Map<String,String> remap = yuyueService.addYuyue(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【生成预约信息出错】" + e.getMessage());
+            throw new ReException("生成预约信息失败");
+        }
+    }
+
+
+    /**
+     * 取消预约
+     * @param map
+     * @return
+     */
+    public String deYuyue(Map<String,String> map){
+        try{
+            Map<String,String> remap = yuyueService.deYuyue(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【取消预约出错】" + e.getMessage());
+            throw new ReException("取消预约失败");
+        }
+    }
+
+
 
 
 

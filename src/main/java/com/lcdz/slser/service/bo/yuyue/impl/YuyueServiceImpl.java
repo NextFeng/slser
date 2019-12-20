@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +71,42 @@ public class YuyueServiceImpl implements YuyueService {
             e.printStackTrace();
             log.error("【查询我的预约列表出错】" + e.getMessage());
             throw new ReException("查询我的预约列表失败");
+        }
+    }
+
+    @Override
+    public Map<String,String> addYuyue(Map<String, String> map) {
+        try{
+            yuyueDao.addYuyue(map);
+            if("SUCCESS".equals(map.get("RETURNCODE"))){
+                Map<String,String> remap = new HashMap<>();
+                remap.put("YUENO",map.get("YUENO"));
+                return remap;
+            }else{
+                log.error("【生成预约信息失败】参数+ " + map);
+                throw new ReException("生成预约信息调用存储过程返回失败：" + map.get("RETURNMSG"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【生成预约信息出错】" + e.getMessage());
+            throw new ReException("生成预约信息失败");
+        }
+    }
+
+    @Override
+    public Map<String,String> deYuyue(Map<String, String> map) {
+        try{
+            yuyueDao.deYuyue(map);
+            if("SUCCESS".equals(map.get("RETURNCODE"))){
+                return new HashMap<>();
+            }else{
+                log.error("【取消预约失败】参数+ " + map);
+                throw new ReException("取消预约调用存储过程返回失败：" + map.get("RETURNMSG"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【取消预约出错】" + e.getMessage());
+            throw new ReException("取消预约失败");
         }
     }
 }

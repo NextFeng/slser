@@ -40,4 +40,12 @@ public interface ZycxService {
      */
     List<Map<String,String>> getzyZdmx(Map<String,String> map);
 
+
+    /**
+     * 住院押金充值
+     * @param map
+     * @return 押金余额
+     */
+    Map<String,String> zycz(Map<String,String> map);
+
 }

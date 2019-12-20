@@ -49,18 +49,19 @@ public class HisWebServiceImpl implements HisWebService {
         String returnXml = "";
         try {
             Map<String, String> pamap = XmlUtil.xmlToMap(message);
-//            if(!ParamUtil.checkSgin(pamap)){
-//                throw new ReException("验证签名错误");
-//            }
+            if(!ParamUtil.checkSgin(pamap)){
+                throw new ReException("验证签名错误");
+            }
             String payMethod  = pamap.get("Method");
             if (MethodConstants.v_mz_cards.equals(payMethod)) {
                 //查询院内就诊卡
                 returnXml = cardController.MzCards(pamap);
             }else if(MethodConstants.proce_mz_create.equals(payMethod)){
                 //创建就诊卡
+                returnXml = cardController.MzCardAdd(pamap);
             }else if(MethodConstants.proce_mz_charge.equals(payMethod)){
                 //就诊卡充值
-
+                returnXml = cardController.MzCardCz(pamap);
             }else if(MethodConstants.v_mz_charge.equals(payMethod)){
                 //卡余额查询
                 returnXml = cardController.MzCardCharge(pamap);
@@ -79,13 +80,13 @@ public class HisWebServiceImpl implements HisWebService {
                 returnXml = yuyueController.yuyuePb(pamap);
             }else if(MethodConstants.proce_mz_yue.equals(payMethod)){
                 //生成预约信息
-
+                returnXml = yuyueController.addYuyue(pamap);
             }else if(MethodConstants.v_mz_getyue.equals(payMethod)){
                 //查询我的预约
                 returnXml = yuyueController.yuyueList(pamap);
             }else if(MethodConstants.proce_mz_calyy.equals(payMethod)){
                 //取消预约
-
+                returnXml = yuyueController.deYuyue(pamap);
             }else if(MethodConstants.v_mz_ghks.equals(payMethod)){
                 //查询医院挂号科室
                 returnXml = guahaoController.guahaoKs(pamap);
@@ -97,13 +98,13 @@ public class HisWebServiceImpl implements HisWebService {
                 returnXml = guahaoController.guahaoPb(pamap);
             }else if(MethodConstants.proce_mz_gh.equals(payMethod)){
                 //挂号
-
+                returnXml = guahaoController.addGuahao(pamap);
             }else if(MethodConstants.v_mz_getgh.equals(payMethod)){
                 //查询我的挂号信息
                 returnXml = guahaoController.guahaoList(pamap);
             }else if(MethodConstants.proce_mz_calgh.equals(payMethod)){
                 //取消挂号
-
+                returnXml = guahaoController.deGuahao(pamap);
             }else if(MethodConstants.v_my_jy.equals(payMethod)){
                 //查询我的检验信息
                 returnXml = jiancyController.jyList(pamap);
@@ -124,7 +125,7 @@ public class HisWebServiceImpl implements HisWebService {
                 returnXml = zycxController.zyBill(pamap);
             }else if(MethodConstants.proce_zy_charge.equals(payMethod)){
                 //住院押金充值
-
+                returnXml = zycxController.zyCz(pamap);
             }else if(MethodConstants.v_zy_zd.equals(payMethod)){
                 //查询住院账单
                 returnXml = zycxController.zyZd(pamap);
@@ -139,7 +140,7 @@ public class HisWebServiceImpl implements HisWebService {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("【PayWebServiceImpl-->UnifiedPayment】" + e.getMessage());
+            log.error("【HisWebServiceImpl-->Hiser】" + e.getMessage());
             returnXml = ResUtil.error(e.getMessage());
         }
         log.info("【当前时间是" + WebUtils.getDateTime() + ",返回的Xml是】:" + returnXml);

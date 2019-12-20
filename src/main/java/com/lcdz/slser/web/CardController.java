@@ -76,7 +76,37 @@ public class CardController {
 
 
 
+    /**
+     * 添加就诊卡
+     * @param map
+     * @return 卡号
+     */
+    public String MzCardAdd(Map<String,String> map){
+        try{
+           Map<String,String> remap = cardService.addCard(map);
+           return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【添加就诊卡出错】" + e.getMessage());
+            throw new ReException("添加就诊卡失败");
+        }
+    }
 
 
+    /**
+     * 就诊卡充值
+     * @param map
+     * @return 卡余额
+     */
+    public String MzCardCz(Map<String,String> map){
+        try{
+            Map<String,String> remap = cardService.chargeCard(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【就诊卡充值出错】" + e.getMessage());
+            throw new ReException("就诊卡充值失败");
+        }
+    }
 
 }

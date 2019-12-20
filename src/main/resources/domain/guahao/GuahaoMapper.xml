@@ -24,4 +24,53 @@
        order by t.SUBTIME desc
     </select>
 
+
+    <parameterMap id="guaMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="KSCODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="DOCCODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="HYDATE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="HYTIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="GHFEE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="ORDERNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="YUENO" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 挂号生成信息 -->
+    <select id="addGuahao" statementType="CALLABLE" parameterMap="guaMap">
+		{call PROCE_MZ_GH(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{KSCODE,mode=IN,jdbcType=VARCHAR},
+			#{DOCCODE,mode=IN,jdbcType=VARCHAR},
+			#{HYDATE,mode=IN,jdbcType=VARCHAR},
+			#{HYTIME,mode=IN,jdbcType=VARCHAR},
+			#{GHFEE,mode=IN,jdbcType=VARCHAR},
+			#{ORDERNO,mode=IN,jdbcType=VARCHAR},
+			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{YUENO,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+    <parameterMap id="deguaMap" type="map">
+        <parameter property="GHNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 取消挂号 -->
+    <select id="deGuahao" statementType="CALLABLE" parameterMap="deguaMap">
+		{call PROCE_MZ_CALGH(
+			#{GHNO,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
 </mapper>

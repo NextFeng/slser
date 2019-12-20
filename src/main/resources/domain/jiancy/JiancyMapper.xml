@@ -4,7 +4,7 @@
 
     <!-- 查询检验信息 -->
     <select id="getjy" resultType="map" parameterType="map">
-        select * from v_my_jy where CARDNO = #{CARDNO}
+        select t.* , to_char(t.JYTIME,'yyyy-mm-dd') as JYTIMEFORMAT from v_my_jy t where CARDNO = #{CARDNO}
         order by JYTIME desc
     </select>
 
@@ -15,7 +15,7 @@
 
     <!-- 查询检查信息 -->
     <select id="getjc" resultType="map" parameterType="map">
-       select * from v_my_jc t where CARDNO = #{CARDNO}
+       select  t.* , substr(t.JYTIME,1,10) as JYTIMEFORMAT  from v_my_jc t  where CARDNO = #{CARDNO}
        order by t.JYTIME desc
     </select>
 

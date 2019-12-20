@@ -32,4 +32,47 @@
        order by t.SUBTIME desc
     </select>
 
+
+
+    <parameterMap id="yueMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="KSCODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="DOCCODE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="HYDATE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="HYTIME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="YUENO" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 预约生成信息 -->
+    <select id="addYuyue" statementType="CALLABLE" parameterMap="yueMap">
+		{call PROCE_MZ_YUE(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{KSCODE,mode=IN,jdbcType=VARCHAR},
+			#{DOCCODE,mode=IN,jdbcType=VARCHAR},
+			#{HYDATE,mode=IN,jdbcType=VARCHAR},
+			#{HYTIME,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{YUENO,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+    <parameterMap id="deyueMap" type="map">
+        <parameter property="YUENO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 取消预约 -->
+    <select id="deYuyue" statementType="CALLABLE" parameterMap="deyueMap">
+		{call PROCE_MZ_CALYY(
+			#{YUENO,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
 </mapper>

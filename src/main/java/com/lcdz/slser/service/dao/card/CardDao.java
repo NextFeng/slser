@@ -25,7 +25,7 @@ public interface CardDao {
      * @param cardID
      * @return 卡信息
      */
-    Map<String,String> getCharge(String cardID);
+    Map<String,Object> getCharge(String cardID);
 
 
     /**
@@ -34,6 +34,24 @@ public interface CardDao {
      * @return 卡列表
      */
     List<Map<String,String>> getBill(Map<String,String> map);
+
+
+    /**
+     * 添加就诊卡
+     * @param map
+     * @return 卡号
+     */
+    void addCard(Map<String,String> map);
+
+
+
+    /**
+     * 就诊卡充值
+     * @param map
+     * @return 卡余额
+     */
+    void chargeCard(Map<String,String> map);
+
 
 
 }

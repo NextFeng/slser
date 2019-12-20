@@ -7,6 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -70,6 +72,42 @@ public class GuahaoServiceImpl implements GuahaoService {
             e.printStackTrace();
             log.error("【查询我的挂号列表出错】" + e.getMessage());
             throw new ReException("查询我的预约列表失败");
+        }
+    }
+
+    @Override
+    public Map<String, String> addGuahao(Map<String, String> map) {
+        try{
+            guahaoDao.addGuahao(map);
+            if("SUCCESS".equals(map.get("RETURNCODE"))){
+                Map<String,String> remap = new HashMap<>();
+                remap.put("GHNO",map.get("GHNO"));
+                return remap;
+            }else{
+                log.error("【生成挂号信息失败】参数+ " + map);
+                throw new ReException("生成挂号信息调用存储过程返回失败：" + map.get("RETURNMSG"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【生成挂号信息出错】" + e.getMessage());
+            throw new ReException("生成挂号信息失败");
+        }
+    }
+
+    @Override
+    public Map<String, String> deGuahao(Map<String, String> map) {
+        try{
+            guahaoDao.deGuahao(map);
+            if("SUCCESS".equals(map.get("RETURNCODE"))){
+                return new HashMap<>();
+            }else{
+                log.error("【取消挂号失败】参数+ " + map);
+                throw new ReException("取消挂号调用存储过程返回失败：" + map.get("RETURNMSG"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【取消挂号出错】" + e.getMessage());
+            throw new ReException("取消挂号失败");
         }
     }
 }

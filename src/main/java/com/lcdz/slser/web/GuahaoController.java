@@ -88,4 +88,39 @@ public class GuahaoController {
             throw new ReException("查询我的挂号列表失败");
         }
     }
+
+
+    /**
+     * 生成挂号信息
+     * @param map
+     * @return
+     */
+    public String addGuahao(Map<String,String> map){
+        try{
+            Map<String,String> remap = guahaoService.addGuahao(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【生成挂号信息出错】" + e.getMessage());
+            throw new ReException("生成挂号信息失败");
+        }
+    }
+
+    /**
+     * 取消挂号
+     * @param map
+     * @return
+     */
+    public String deGuahao(Map<String,String> map){
+        try{
+            Map<String,String> remap = guahaoService.deGuahao(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【取消挂号出错】" + e.getMessage());
+            throw new ReException("取消挂号失败");
+        }
+    }
+
+
 }

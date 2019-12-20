@@ -44,4 +44,18 @@ public interface GuahaoDao {
      * @return 挂号信息
      */
     List<Map<String,String>> getGuahao(Map<String,String> map);
+
+
+    /**
+     * 生成挂号信息
+     * @param map
+     */
+    void addGuahao(Map<String,String> map);
+
+
+    /**
+     * 取消挂号
+     * @param map
+     */
+    void deGuahao(Map<String,String> map);
 }

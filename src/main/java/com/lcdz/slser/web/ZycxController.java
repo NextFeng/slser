@@ -89,5 +89,21 @@ public class ZycxController {
     }
 
 
+    /**
+     * 住院押金充值
+     * @param map
+     * @return
+     */
+    public String zyCz(Map<String,String> map){
+        try{
+            Map<String,String> remap = zycxService.zycz(map);
+            return ResUtil.success(remap);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【查询住院明细账单出错】" + e.getMessage());
+            throw new ReException("查询住院明细账单失败");
+        }
+    }
+
 
 }

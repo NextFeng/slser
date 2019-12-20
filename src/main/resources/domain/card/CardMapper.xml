@@ -28,4 +28,59 @@
        select t.* , to_char(t.billdate,'yyyy-mm-dd hh24:mi:ss') as BILLDATEFORMAT from v_mz_bill t where CARDNO = #{CARDNO} order by t.billdate desc
     </select>
 
+
+    <parameterMap id="addMap" type="map">
+        <parameter property="NAME" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="IDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="PHONE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="BIRTH" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="SEX" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="ADDRESS" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="CARDNO" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+
+    <!-- 创建就诊卡-->
+    <select id="addCard" statementType="CALLABLE" parameterMap="addMap">
+		{call PROCE_MZ_CREATE(
+			#{NAME,mode=IN,jdbcType=VARCHAR},
+			#{IDNO,mode=IN,jdbcType=VARCHAR},
+			#{PHONE,mode=IN,jdbcType=VARCHAR},
+			#{BIRTH,mode=IN,jdbcType=VARCHAR},
+			#{SEX,mode=IN,jdbcType=VARCHAR},
+			#{ADDRESS,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{CARDNO,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+    <parameterMap id="chargeMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="TOTALFEE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="ORDERNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="MONEY" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 充值就诊卡-->
+    <select id="chargeCard" statementType="CALLABLE" parameterMap="chargeMap">
+		{call PROCE_MZ_CHARGE(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{TOTALFEE,mode=IN,jdbcType=VARCHAR},
+			#{ORDERNO,mode=IN,jdbcType=VARCHAR},
+			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{MONEY,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+
 </mapper>

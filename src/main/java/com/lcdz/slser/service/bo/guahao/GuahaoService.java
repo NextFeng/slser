@@ -41,6 +41,19 @@ public interface GuahaoService {
      */
     List<Map<String,String>> getGuahao(Map<String,String> map);
 
+    /**
+     * 生成挂号信息
+     * @param map
+     */
+    Map<String,String> addGuahao(Map<String,String> map);
+
+
+    /**
+     * 取消挂号
+     * @param map
+     */
+    Map<String,String> deGuahao(Map<String,String> map);
+
 
 
 }

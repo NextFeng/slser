@@ -44,4 +44,18 @@ public interface YuyueDao {
      * @return 预约信息
      */
     List<Map<String,String>> getYuyue(Map<String,String> map);
+
+
+    /**
+     * 生成预约信息
+     * @param map
+     */
+    void addYuyue(Map<String,String> map);
+
+
+    /**
+     * 取消预约
+     * @param map
+     */
+    void deYuyue(Map<String,String> map);
 }

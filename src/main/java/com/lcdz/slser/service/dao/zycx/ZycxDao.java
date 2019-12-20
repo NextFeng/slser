@@ -42,4 +42,12 @@ public interface ZycxDao {
      */
     List<Map<String,String>> getzyZdmx(Map<String,String> map);
 
+
+    /**
+     * 住院押金充值
+     * @param map
+     * @return 押金余额
+     */
+    void zycz(Map<String,String> map);
+
 }
