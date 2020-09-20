@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.refund.RefundDao">
+
+
+
+    <!-- 查询公众号的充值记录 -->
+    <select id="getwxlist" resultType="map" parameterType="map">
+        select t.* , to_char(t.billdate,'yyyy-mm-dd hh24:mi:ss') as billdateformat from v_mz_jzkczjl t
+        where cardno = #{CARDNO} order by billdate desc
+    </select>
+
+
+
+
+</mapper>

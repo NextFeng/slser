@@ -71,7 +71,6 @@ public class HisWebServiceImpl implements HisWebService {
             }else if(MethodConstants.v_mz_ks.equals(payMethod)){
                 //查询医院预约科室
                 returnXml = yuyueController.yuyueKs(pamap);
-
             }else if(MethodConstants.v_mz_doc.equals(payMethod)){
                 //查询科室下的医生
                 returnXml = yuyueController.yuyueDoc(pamap);
