@@ -41,6 +41,9 @@ public class HisWebServiceImpl implements HisWebService {
     @Autowired
     private HospController hospController;
 
+    @Autowired
+    private RefundController refundController;
+
 
     @Override
     public String hiser(String message) {
@@ -134,6 +137,15 @@ public class HisWebServiceImpl implements HisWebService {
             }else if(MethodConstants.v_hosp_tel.equals(payMethod)){
                 //查询院内联系方式
                 returnXml = hospController.docInfo(pamap);
+            }else if(MethodConstants.v_wx_list.equals(payMethod)){
+                //查询线上充值记录
+                returnXml = refundController.getwxlist(pamap);
+            }else if(MethodConstants.proce_wx_refund.equals(payMethod)){
+                //进行退费
+                returnXml = refundController.refund(pamap);
+            }else if(MethodConstants.v_wx_refundlist.equals(payMethod)){
+                //查询退费记录
+                returnXml = refundController.refundList(pamap);
             }else {
                 throw new ReException("Method 方法名传入错误");
             }

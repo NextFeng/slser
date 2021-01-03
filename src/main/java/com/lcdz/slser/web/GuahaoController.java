@@ -3,6 +3,7 @@ package com.lcdz.slser.web;
 import com.lcdz.slser.service.bo.guahao.GuahaoService;
 import com.lcdz.slser.tools.exception.ReException;
 import com.lcdz.slser.tools.result.ResUtil;
+import com.lcdz.slser.tools.utils.DateUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,6 +48,7 @@ public class GuahaoController {
      */
     public String guahaoDoc(Map<String,String> map){
         try{
+            map.put("HYDATE", DateUtil.getDate());
             List<Map<String,String>> list = guahaoService.getDoc(map);
             return ResUtil.success(list);
         }catch (Exception e){

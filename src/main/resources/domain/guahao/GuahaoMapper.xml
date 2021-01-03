@@ -7,9 +7,10 @@
         select * from v_mz_ghks
     </select>
 
-    <!--查询预约医生列表-->
+    <!--查询预约医生列表 #{KSCODE}-->
     <select id="getDoc" resultType="map" parameterType="map">
-        select * from v_mz_ghdoc where KSCODE = #{KSCODE}
+        select t.*,to_char(t.HYDATE,'yyyy-mm-dd') as HYDATEFORMAT from v_mz_ghdoc t where t.KSCODE = '3223'
+        and trunc(HYDATE) = to_date('2021-01-04','yyyy-mm-dd')
     </select>
 
     <!--查询医生排班信息-->

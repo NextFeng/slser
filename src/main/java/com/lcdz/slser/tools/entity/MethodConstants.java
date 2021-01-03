@@ -40,4 +40,9 @@ public class MethodConstants {
 
     public static final String v_hosp_tel = "60001";
 
+
+    public static final String v_wx_list = "70001";
+    public static final String proce_wx_refund = "70002";
+    public static final String v_wx_refundlist = "70003";
+
 }

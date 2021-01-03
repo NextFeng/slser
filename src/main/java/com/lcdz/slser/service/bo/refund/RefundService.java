@@ -1,13 +1,13 @@
-package com.lcdz.slser.service.dao.refund;
-
-
-import org.springframework.stereotype.Repository;
+package com.lcdz.slser.service.bo.refund;
 
 import java.util.List;
 import java.util.Map;
 
-@Repository
-public interface RefundDao {
+/**
+ * @author QinZhenGuo
+ * @date 2020-09-25 22:22
+ */
+public interface RefundService {
 
 
     /**
@@ -20,20 +20,11 @@ public interface RefundDao {
 
 
     /**
-     * 检查退费金额
-     * @param map
-     * @return
-     */
-    void checkFee(Map<String,Object> map);
-
-
-
-    /**
      * 进行退费
      * @param map
      * @return
      */
-    void refund(Map<String,Object> map);
+    void refund(Map<String,String> map);
 
 
 
@@ -44,4 +35,5 @@ public interface RefundDao {
      * @return
      */
     List<Map<String, String>> refundList(Map<String,String> map);
+
 }

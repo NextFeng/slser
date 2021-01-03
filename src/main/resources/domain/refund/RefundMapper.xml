@@ -3,7 +3,6 @@
 <mapper namespace="com.lcdz.slser.service.dao.refund.RefundDao">
 
 
-
     <!-- 查询公众号的充值记录 -->
     <select id="getwxlist" resultType="map" parameterType="map">
         select t.* , to_char(t.billdate,'yyyy-mm-dd hh24:mi:ss') as billdateformat from v_mz_jzkczjl t
@@ -11,6 +10,43 @@
     </select>
 
 
+    <parameterMap id="checkMap" type="map">
+        <parameter property="病人id_in" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="金额_in" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="result" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
 
+    <!-- 验证退费金额 -->
+    <select id="checkFee" statementType="CALLABLE" parameterMap="checkMap" resultType="string">
+		{ #{result,mode=OUT,jdbcType=VARCHAR}= call ZLHN_FUN_GZHKT_CHECK(
+			#{病人id_in,mode=IN,jdbcType=VARCHAR},
+			#{金额_in,mode=IN,jdbcType=VARCHAR}
+		)}
+	</select>
+
+    <parameterMap id="refundMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="TOTALFEE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="LSH" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="result" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 进行his退费 -->
+    <select id="refund" statementType="CALLABLE" parameterMap="refundMap">
+		{call zlhn_gzhtk_insert(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{TOTALFEE,mode=IN,jdbcType=VARCHAR},
+			#{LSH,mode=IN,jdbcType=VARCHAR},
+			#{result,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+
+    <!-- 查询公众号的退费记录 -->
+    <select id="refundList" resultType="map" parameterType="map">
+        select  t.* , to_char(t.billdate,'yyyy-mm-dd hh24:mi:ss') as billdateformat from  v_mz_tfjl t
+        where cardno = #{CARDNO} order by billdate desc
+    </select>
 
 </mapper>
