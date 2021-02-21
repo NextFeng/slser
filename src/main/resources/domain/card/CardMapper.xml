@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.lcdz.slser.service.dao.card.CardDao">
 
-    <!-- 查询院内卡 -->
+    <!-- 查询院内卡
+
+      <if test="PHONE != null">
+                and PHONE = #{PHONE}
+            </if>
+
+     -->
     <select id="getCards" resultType="map" parameterType="map">
         select * from v_mz_cards
         <where>
@@ -12,9 +18,7 @@
             <if test="IDNO != null">
                 and IDNO = #{IDNO}
             </if>
-            <if test="PHONE != null">
-                and PHONE = #{PHONE}
-            </if>
+
         </where>
     </select>
 

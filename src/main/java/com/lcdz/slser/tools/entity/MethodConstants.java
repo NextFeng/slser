@@ -45,4 +45,9 @@ public class MethodConstants {
     public static final String proce_wx_refund = "70002";
     public static final String v_wx_refundlist = "70003";
 
+    public static final String v_check_list = "80001";
+    public static final String proce_check_yy = "80002";
+    public static final String proce_check_cal = "80003";
+
+
 }

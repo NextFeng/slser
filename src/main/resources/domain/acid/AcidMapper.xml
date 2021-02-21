@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.lcdz.slser.service.dao.acid.AcidDao">
+
+    <select id="getItems" resultType="map" parameterType="map">
+        select * from v_check_list where itemname = '新型冠状病毒核酸检测（门诊）'
+    </select>
+
+    <parameterMap id="addMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="HYDATE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="GHNO" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+
+    <!-- 预约核酸检测 -->
+    <select id="addAcid" statementType="CALLABLE" parameterMap="addMap">
+		{call PROCE_MZ_CREATE(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{HYDATE,mode=IN,jdbcType=VARCHAR},
+			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{GHNO,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+
+    <parameterMap id="chargeMap" type="map">
+        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="TOTALFEE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="ORDERNO" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="MONEY" mode="OUT" jdbcType="VARCHAR"/>
+    </parameterMap>
+
+    <!-- 取消核酸检测 -->
+    <select id="calAcid" statementType="CALLABLE" parameterMap="chargeMap">
+		{call PROCE_MZ_CHARGE(
+			#{CARDNO,mode=IN,jdbcType=VARCHAR},
+			#{TOTALFEE,mode=IN,jdbcType=VARCHAR},
+			#{ORDERNO,mode=IN,jdbcType=VARCHAR},
+			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
+			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
+			#{MONEY,mode=OUT,jdbcType=VARCHAR}
+		)}
+	</select>
+
+</mapper>

@@ -7,16 +7,16 @@
         select * from v_mz_ghks
     </select>
 
-    <!--查询预约医生列表 #{KSCODE}-->
+    <!--查询预约医生列表 -->
     <select id="getDoc" resultType="map" parameterType="map">
-        select t.*,to_char(t.HYDATE,'yyyy-mm-dd') as HYDATEFORMAT from v_mz_ghdoc t where t.KSCODE = '3223'
-        and trunc(HYDATE) = to_date('2021-01-04','yyyy-mm-dd')
+        select t.*,to_char(t.HYDATE,'yyyy-mm-dd') as HYDATEFORMAT from v_mz_ghdoc t where t.KSCODE = #{KSCODE}
+        and trunc(HYDATE) = to_date(#{HYDATE},'yyyy-mm-dd')
     </select>
 
     <!--查询医生排班信息-->
     <select id="getDocPb" resultType="map" parameterType="map">
-       select * from v_mz_ghpb t where DOCCODE = #{DOCCODE}
-       order by t.billdate desc
+        select * from v_mz_ghpb t where YHDATE = #{HYDATE} and ID = #{DOCCODE}
+        order by t.yhtime
     </select>
 
     <!--查询我的挂号信息-->
@@ -37,7 +37,7 @@
         <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
         <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
         <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
-        <parameter property="YUENO" mode="OUT" jdbcType="VARCHAR"/>
+        <parameter property="GHNO" mode="OUT" jdbcType="VARCHAR"/>
     </parameterMap>
 
     <!-- 挂号生成信息 -->
@@ -53,7 +53,7 @@
 			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
 			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
 			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
-			#{YUENO,mode=OUT,jdbcType=VARCHAR}
+			#{GHNO,mode=OUT,jdbcType=VARCHAR}
 		)}
 	</select>
 

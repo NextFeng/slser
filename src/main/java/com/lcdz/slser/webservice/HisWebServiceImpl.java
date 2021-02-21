@@ -44,6 +44,9 @@ public class HisWebServiceImpl implements HisWebService {
     @Autowired
     private RefundController refundController;
 
+    @Autowired
+    private AcidController acidController;
+
 
     @Override
     public String hiser(String message) {
@@ -146,6 +149,15 @@ public class HisWebServiceImpl implements HisWebService {
             }else if(MethodConstants.v_wx_refundlist.equals(payMethod)){
                 //查询退费记录
                 returnXml = refundController.refundList(pamap);
+            }else if(MethodConstants.v_check_list.equals(payMethod)){
+                //查询预约的项目
+                returnXml = acidController.getItems(pamap);
+            }else if(MethodConstants.proce_check_yy.equals(payMethod)){
+                //预约核酸检测
+                returnXml = acidController.addAcid(pamap);
+            }else if(MethodConstants.proce_check_cal.equals(payMethod)){
+                //取消预约
+                returnXml = acidController.calAcid(pamap);
             }else {
                 throw new ReException("Method 方法名传入错误");
             }

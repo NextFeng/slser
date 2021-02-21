@@ -28,7 +28,7 @@ public class GuahaoController {
     /**
      * 查询挂号科室信息
      * @param map
-     * @return 科室列表
+     * @return 科室列表-
      */
     public String guahaoKs(Map<String,String> map){
         try{
@@ -66,6 +66,7 @@ public class GuahaoController {
      */
     public String guahaoPb(Map<String,String> map){
         try{
+            map.put("HYDATE", DateUtil.getBeginDate());
             List<Map<String,String>> list = guahaoService.getDocPb(map);
             return ResUtil.success(list);
         }catch (Exception e){
