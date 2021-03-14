@@ -48,6 +48,9 @@ public class MethodConstants {
     public static final String v_check_list = "80001";
     public static final String proce_check_yy = "80002";
     public static final String proce_check_cal = "80003";
+    public static final String v_check_yy = "80004";
 
+
+    public static final String proce_dzphz_dj = "90001";
 
 }

@@ -47,6 +47,9 @@ public class HisWebServiceImpl implements HisWebService {
     @Autowired
     private AcidController acidController;
 
+    @Autowired
+    private DzphController dzphController;
+
 
     @Override
     public String hiser(String message) {
@@ -158,6 +161,12 @@ public class HisWebServiceImpl implements HisWebService {
             }else if(MethodConstants.proce_check_cal.equals(payMethod)){
                 //取消预约
                 returnXml = acidController.calAcid(pamap);
+            }else if(MethodConstants.v_check_yy.equals(payMethod)){
+                //查询预约记录
+                returnXml = acidController.getYy(pamap);
+            }else if(MethodConstants.proce_dzphz_dj.equals(payMethod)){
+                //电子陪护证验证
+                returnXml = dzphController.dzphCheck(pamap);
             }else {
                 throw new ReException("Method 方法名传入错误");
             }

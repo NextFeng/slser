@@ -58,4 +58,16 @@ public class AcidServiceImpl implements AcidService {
             throw new ReException("取消预约核酸检测失败");
         }
     }
+
+    @Override
+    public List<Map<String, String>> getYy(Map<String, String> map) {
+        try{
+            List<Map<String,String>> list = acidDao.getYy(map);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【查询预约记录出错】" + e.getMessage());
+            throw new ReException("查询预约记录失败");
+        }
+    }
 }

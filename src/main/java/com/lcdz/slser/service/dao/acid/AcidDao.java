@@ -39,4 +39,10 @@ public interface AcidDao {
 
 
 
+    /**
+     * 查询预约记录
+     * @param map
+     * @return 卡列表
+     */
+    List<Map<String,String>> getYy(Map<String, String> map);
 }

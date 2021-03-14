@@ -18,7 +18,7 @@
 
     <!-- 预约核酸检测 -->
     <select id="addAcid" statementType="CALLABLE" parameterMap="addMap">
-		{call PROCE_MZ_CREATE(
+		{call PROCE_CHECK_YY(
 			#{CARDNO,mode=IN,jdbcType=VARCHAR},
 			#{HYDATE,mode=IN,jdbcType=VARCHAR},
 			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
@@ -30,26 +30,23 @@
 
 
     <parameterMap id="chargeMap" type="map">
-        <parameter property="CARDNO" mode="IN" jdbcType="VARCHAR"/>
-        <parameter property="TOTALFEE" mode="IN" jdbcType="VARCHAR"/>
-        <parameter property="ORDERNO" mode="IN" jdbcType="VARCHAR"/>
-        <parameter property="PAYTYPE" mode="IN" jdbcType="VARCHAR"/>
+        <parameter property="YYNO" mode="IN" jdbcType="VARCHAR"/>
         <parameter property="RETURNCODE" mode="OUT" jdbcType="VARCHAR"/>
         <parameter property="RETURNMSG" mode="OUT" jdbcType="VARCHAR"/>
-        <parameter property="MONEY" mode="OUT" jdbcType="VARCHAR"/>
     </parameterMap>
 
     <!-- 取消核酸检测 -->
     <select id="calAcid" statementType="CALLABLE" parameterMap="chargeMap">
-		{call PROCE_MZ_CHARGE(
-			#{CARDNO,mode=IN,jdbcType=VARCHAR},
-			#{TOTALFEE,mode=IN,jdbcType=VARCHAR},
-			#{ORDERNO,mode=IN,jdbcType=VARCHAR},
-			#{PAYTYPE,mode=IN,jdbcType=VARCHAR},
+		{call PROCE_CHECK_CAL(
+			#{YYNO,mode=IN,jdbcType=VARCHAR},
 			#{RETURNCODE,mode=OUT,jdbcType=VARCHAR},
-			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR},
-			#{MONEY,mode=OUT,jdbcType=VARCHAR}
+			#{RETURNMSG,mode=OUT,jdbcType=VARCHAR}
 		)}
 	</select>
+
+
+    <select id="getYy" resultType="map" parameterType="map">
+          select t.* , to_char(t.yytime,'yyyy-mm-dd hh24:mi:ss') as FORMATDATE  from v_check_yy t where t.CARDNO = #{CARDNO}
+    </select>
 
 </mapper>

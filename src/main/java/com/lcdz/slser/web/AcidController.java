@@ -74,4 +74,21 @@ public class AcidController {
         }
     }
 
+
+    /**
+     * 查询预约的项目
+     * @param map
+     * @return 项目列表
+     */
+    public String getYy(Map<String,String> map){
+        try{
+            List<Map<String,String>> list = acidService.getYy(map);
+            return ResUtil.success(list);
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("【查询预约记录出错】" + e.getMessage());
+            throw new ReException("查询预约记录失败");
+        }
+    }
+
 }

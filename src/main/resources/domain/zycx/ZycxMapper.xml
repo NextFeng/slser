@@ -15,6 +15,9 @@
             <if test="PHONE != null">
                 and PHONE = #{PHONE}
             </if>
+            <if test="CARDNO != null">
+                and CARDNO = #{CARDNO}
+            </if>
         </where>
     </select>
 
